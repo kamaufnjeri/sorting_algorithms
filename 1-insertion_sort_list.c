@@ -1,35 +1,31 @@
-#include "sort.h"
-
 /**
- * insertion_sort_list - perform insertion sort on a linked list
- * @list: head node of the linked list
+ * insertion_sort_list - sorts list through insertion
+ * @list: node points to first element on list
  */
-void insertion_sort_list(listint_t **list)
+void insertion_sort_list(listint_t **list)`
 {
-	listint_t *current, *swap, *prv;
+	listint_t *node, *temp, *temp2;
 
-	if (!list || !*list)
+	if (list == NULL || *list == NULL)
 		return;
-
-	current = *list;
-	while ((current = current->next))
+	node = *list;
+	while ((node = node->next))
 	{
-		swap = current;
-		while (swap->prev && swap->n < swap->prev->n)
+		temp = node;
+		while (temp->prev && temp->n < temp->prev->n)
 		{
-			prv = swap->prev;
-			if (swap->next)
-				swap->next->prev = prv;
-			if (prv->prev)
-				prv->prev->next = swap;
+			temp2 = temp->prev;
+			if (temp2->prev == NULL)
+				*list = temp;
 			else
-				*list = swap;
-			prv->next = swap->next;
-			swap->prev = prv->prev;
-			swap->next = prv;
-			prv->prev = swap;
-
+				temp2->prev->next = temp;
+			temp->prev = temp2->prev;
+			if (temp->next != NULL)
+				temp->next->prev = temp2;
+			temp2->next = temp->next;
+			temp->next = temp2;
+			temp->prev = temp2->prev;
+			temp2->prev = temp;
 			print_list(*list);
 		}
 	}
-}
