@@ -49,9 +49,9 @@ int partition(int *array, int lb, int ub, size_t size)
 
 /**
  * sort - sort array recursion
- * @array: array 
+ * @array: array
  * @lb: index of first element
- * @up: index of last element
+ * @ub: index of last element
  * @size: size of array
  */
 void sort(int *array, int lb, int ub, size_t size)
