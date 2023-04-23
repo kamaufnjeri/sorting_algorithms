@@ -1,10 +1,10 @@
 #include "sort.h"
 
 /**
- * insertion_sort_list - perform insertion sort on a linked list
- * @list: head node of the linked list
+ * insertion_sort_list - sorts list through insertion
+ * @list: node points to first element on list
  */
-void insertion_sort_list(listint_t **list)
+void insertion_sort_list(listint_t **list)`
 {
 	listint_t *node, *temp, *temp2;
 
