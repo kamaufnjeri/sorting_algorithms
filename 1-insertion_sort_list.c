@@ -1,8 +1,10 @@
+#include "sort.h"
+
 /**
  * insertion_sort_list - sorts list through insertion
  * @list: node points to first element on list
  */
-void insertion_sort_list(listint_t **list)`
+void insertion_sort_list(listint_t **list)
 {
 	listint_t *node, *temp, *temp2;
 
@@ -19,7 +21,6 @@ void insertion_sort_list(listint_t **list)`
 				*list = temp;
 			else
 				temp2->prev->next = temp;
-			temp->prev = temp2->prev;
 			if (temp->next != NULL)
 				temp->next->prev = temp2;
 			temp2->next = temp->next;
@@ -29,3 +30,4 @@ void insertion_sort_list(listint_t **list)`
 			print_list(*list);
 		}
 	}
+}
