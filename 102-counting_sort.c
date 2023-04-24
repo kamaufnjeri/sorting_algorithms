@@ -27,18 +27,18 @@ void counting_sort(int *array, size_t size)
 {
 	int *copy, *count, i, k;
 
+	if (array == NULL || size < 2)
+		return;
 	k = get_k(array, size);
 	copy = malloc(sizeof(int) * size);
-	count = malloc(sizeof(int) * (k + 1));
-	if (array == NULL || size < 2 || copy == NULL)
+	if (copy == NULL)
 		return;
+	count = malloc(sizeof(int) * (k + 1));
 	if (count == NULL)
 	{
 		free(copy);
 		return;
 	}
-	for (i = 0; i <= k; i++)
-		count[i] = 0;
 	for (i = 0; i < (int)size; i++)
 		count[array[i]]++;
 	for (i = 1; i <= k; i++)
