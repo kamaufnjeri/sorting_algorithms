@@ -1,27 +1,27 @@
 #include "sort.h"
 
 /**
- * swapper - swapping a linked list
- * @holder: current location of linked list
- * @list: double pointer to list
- * Return: return the new pointer
+ * swap_node - swap two nodes
+ * @temp: to swap
+ * @list: pointer to first node
+ * Return: pointer new pointer after the exchange
  */
-listint_t *swapper(listint_t *holder, listint_t **list)
+listint_t *swap_node(listint_t **list, listint_t *temp)
 {
-	listint_t *node_holder;
+	listint_t *temp2;
 
-	if (holder->prev->prev != NULL)
-		holder->prev->prev->next = holder;
-	holder->prev->next = holder->next;
-	node_holder = holder->prev->prev;
-	holder->prev->prev = holder;
-	if (holder->next != NULL)
-		holder->next->prev = holder->prev;
-	holder->next = holder->prev;
-	holder->prev = node_holder;
-	if (holder->prev == NULL)
-		*list = holder;
-	return (holder);
+	temp2 = temp->prev;
+	if (temp2->prev != NULL)
+		temp2->prev->next = temp;
+	temp2->next = temp->next;
+	if (temp->next != NULL)
+		temp->next->prev = temp2;
+	temp->next = temp->prev;
+	temp->prev = temp2->prev;
+	temp2->prev = temp;
+	if (temp->prev == NULL)
+		*list = temp;
+	return (temp);
 }
 
 /**
@@ -30,45 +30,38 @@ listint_t *swapper(listint_t *holder, listint_t **list)
  */
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *current;
-
+	listint_t *temp = *list;
 	int flag = 1;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
-
-	current = (*list);
-
-	while (flag != 0)
-	{
+	do {
 		flag = 0;
-		while (current->next != NULL)
+		while (temp->next != NULL)
 		{
 
-			if (current->n > current->next->n)
+			if (temp->n > temp->next->n)
 			{
-				current = swapper(current->next, list);
+				temp = swap_node(list, temp->next);
 				print_list(*list);
 				flag = 1;
 			}
-			current = current->next;
+			temp = temp->next;
 		}
-		current = current->prev;
-
-		while (current->prev != NULL)
+		temp = temp->prev;
+		while (temp->prev != NULL)
 		{
 
-			if (current->prev->n > current->n)
+			if (temp->n < temp->prev->n)
 			{
-				current = swapper(current, list);
+				temp = swap_node(list, temp);
 				print_list(*list);
 				flag = 1;
 			}
-			else if (current->prev != NULL)
-				current = current->prev;
+			else 
+				temp = temp->prev;
 		}
+	       temp = temp->next;
 
-		current = current->next;
-
-	}
+	} while(flag != 0);
 }
