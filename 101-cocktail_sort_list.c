@@ -1,69 +1,59 @@
 #include "sort.h"
 
-/**
- * swapper - swapping a linked list
- * @holder: current location of linked list
- * @list: double pointer to list
- * Return: return the new pointer
- */
-listint_t *swapper(listint_t *holder, listint_t **list)
+void swapme(listint_t *current, listint_t *current_old, listint_t **list)
 {
-	listint_t *node_holder;
+	listint_t *temp1 = current->next;
+	listint_t *temp2 = current_old->prev;
 
-	if (holder->prev->prev != NULL)
-		holder->prev->prev->next = holder;
-	holder->prev->next = holder->next;
-	node_holder = holder->prev->prev;
-	holder->prev->prev = holder;
-	if (holder->next != NULL)
-		holder->next->prev = holder->prev;
-	holder->next = holder->prev;
-	holder->prev = node_holder;
-	if (holder->prev == NULL)
-		*list = holder;
-	return (holder);
+	if (temp1 != NULL)
+		temp1->prev = current_old;
+	if (temp2 != NULL)
+		temp2->next = current;
+	current->prev = temp2;
+	current_old->next = temp1;
+	current->next = current_old;
+	current_old->prev = current;
+	if (*list == current_old)
+		*list = current;
+	print_list(*list);
 }
 
 /**
- * cocktail_sort_list - sort linked list using cocktail sort method
- * @list: input linked list
+ * cocktail_sort_list - sort list
+ * @list: list to sort
  */
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *current;
+	listint_t *check = *list;
 	int flag;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
-
-	current = (*list);
-
 	do {
 		flag = 0;
-		while (current->next != NULL)
+		while (check->next != NULL)
 		{
-
-			if (current->n > current->next->n)
+			if (check->n > check->next->n)
 			{
-				current = swapper(current->next, list);
-				print_list(*list);
-				flag = 1;
-			}
-			current = current->next;
-		}
-		current = current->prev;
-		while (current->prev != NULL)
-		{
-
-			if (current->prev->n > current->n)
-			{
-				current = swapper(current, list);
-				print_list(*list);
+				swapme(check->next, check, list);
 				flag = 1;
 			}
 			else
-				current = current->prev;
+			{
+				check = check->next;
+			}
 		}
-		current = current->next;
-	} while(flag == 1);
+		check = check->prev;
+		while (check->prev != NULL)
+		{
+			if (check->n < check->prev->n)
+			{	swapme(check, check->prev, list);
+				flag = 1;
+			}
+			else
+			{
+				check = check->prev;
+			}
+		}
+	} while (flag == 1);
 }
