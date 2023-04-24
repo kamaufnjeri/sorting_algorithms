@@ -55,5 +55,6 @@ void cocktail_sort_list(listint_t **list)
 				check = check->prev;
 			}
 		}
+		check = check->next;
 	} while (flag == 1);
 }
