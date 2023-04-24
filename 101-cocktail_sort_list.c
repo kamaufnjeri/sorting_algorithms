@@ -50,7 +50,7 @@ void cocktail_sort_list(listint_t **list)
 			{	swapme(check, check->prev, list);
 				flag = 1;
 			}
-			else
+			else if(check->prev != NULL)
 			{
 				check = check->prev;
 			}
