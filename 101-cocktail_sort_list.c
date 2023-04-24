@@ -1,5 +1,11 @@
 #include "sort.h"
 
+/**
+ * swapme - swap the nodes themselves.
+ * @current: pointer.
+ * @current_old: pointer.
+ * @list: doubly linked list
+ */
 void swapme(listint_t *current, listint_t *current_old, listint_t **list)
 {
 	listint_t *temp1 = current->next;
@@ -19,42 +25,37 @@ void swapme(listint_t *current, listint_t *current_old, listint_t **list)
 }
 
 /**
- * cocktail_sort_list - sort list
- * @list: list to sort
+ * cocktail_sort_list - cocktail_sort_list
+ *
+ * @list: doubly linked list
  */
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *check = *list;
-	int flag;
+	listint_t *check = *list, *first = NULL, *last = NULL;
 
-	if (list == NULL || *list == NULL || (*list)->next == NULL)
+	if (!list)
+		return;
+	if (!(*list))
+		return;
+	if (!(*list)->next)
 		return;
 	do {
-		flag = 0;
-		while (check->next != NULL)
+		while (check->next)
 		{
 			if (check->n > check->next->n)
-			{
 				swapme(check->next, check, list);
-				flag = 1;
-			}
 			else
-			{
 				check = check->next;
-			}
 		}
-		check = check->prev;
-		while (check->prev != NULL)
+		last = check;
+		while (check->prev != first)
 		{
 			if (check->n < check->prev->n)
-			{	swapme(check, check->prev, list);
-				flag = 1;
-			}
-			else if(check->prev != NULL)
-			{
+				swapme(check, check->prev, list);
+			else
 				check = check->prev;
-			}
 		}
-		check = check->next;
-	} while (flag == 1);
+		first = check;
+	} while (first != last);
 }
+
