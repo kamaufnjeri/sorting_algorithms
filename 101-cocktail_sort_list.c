@@ -8,14 +8,13 @@
  */
 listint_t *swap_node(listint_t **list, listint_t *temp)
 {
-	listint_t *temp2, *temp3;
+	listint_t *temp3;
 
-	temp2 = temp->prev;
-	if (temp2->prev != NULL)
-		temp2->prev->next = temp;
-	temp2->next = temp->next;
-	temp3 = temp2->prev;
-	temp2->prev = temp;
+	if (temp->prev->prev != NULL)
+		temp->prev->prev->next = temp;
+	temp->prev->next = temp->next;
+	temp3 = temp->prev->prev;
+	temp->prev->prev = temp;
 	if (temp->next != NULL)
 		temp->next->prev = temp2;
 	temp->next = temp->prev;
