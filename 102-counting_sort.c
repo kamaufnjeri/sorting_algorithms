@@ -38,7 +38,8 @@ void counting_sort(int *array, size_t size)
 		free(copy);
 		return;
 	}
-
+	for (i = 0; i <= k; i++)
+		count[i] = 0;
 	for (i = 0; i < (int)size; i++)
 		count[array[i]]++;
 	for (i = 1; i <= k; i++)
