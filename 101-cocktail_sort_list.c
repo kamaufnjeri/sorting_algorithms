@@ -31,8 +31,7 @@ listint_t *swapper(listint_t *holder, listint_t **list)
 void cocktail_sort_list(listint_t **list)
 {
 	listint_t *current;
-
-	int flag = 1;
+	int flag;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
@@ -69,6 +68,5 @@ void cocktail_sort_list(listint_t **list)
 		}
 
 		current = current->next;
-
 	}
 }
