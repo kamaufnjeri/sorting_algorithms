@@ -30,11 +30,12 @@ listint_t *swap_node(listint_t **list, listint_t *temp)
  */
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *temp = *list;
+	listint_t *temp;
 	int flag = 1;
 
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
+	temp = *list;
 	while (flag != 0)
 	{
 		flag = 0;
@@ -59,7 +60,7 @@ void cocktail_sort_list(listint_t **list)
 				print_list(*list);
 				flag = 1;
 			}
-			else if (temp->prev != NULL)
+			else
 				temp = temp->prev;
 		}
 	       temp = temp->next;
