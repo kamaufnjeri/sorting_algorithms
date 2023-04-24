@@ -30,7 +30,8 @@ listint_t *swapper(listint_t *holder, listint_t **list)
  */
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *check = *list, *first = NULL, *last = NULL;
+	listint_t *check = *list;
+	int flag;
 
 	if (!list)
 		return;
@@ -39,32 +40,35 @@ void cocktail_sort_list(listint_t **list)
 	if (!(*list)->next)
 		return;
 	do {
+		flag = 0;
 		while (check->next)
 		{
 			if (check->n > check->next->n)
 			{
 				check = swapper(check->next, list);
 				print_list(* list);
+				flag = 1;
 			}
 			else
 			{
 				check = check->next;
 			}
 		}
-		last = check;
-		while (check->prev != first)
+		check = check->prev;
+		while (check->prev != NULL)
 		{
 			if (check->n < check->prev->n)
 			{
 				check = swapper(check, list);
 				print_list(* list);
+				flag = 1;
 			}
 			else
 			{
 				check = check->prev;
 			}
 		}
-		first = check;
-	} while (first != last);
+		check = check->next;
+	} while (flag == 1);
 }
 
