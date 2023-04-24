@@ -50,9 +50,6 @@ void cocktail_sort_list(listint_t **list)
 			temp = temp->next;
 		}
 		temp = temp->prev;
-		if (flag == 0)
-			break;
-		flag = 0;
 		while (temp->prev != NULL)
 		{
 
@@ -62,10 +59,9 @@ void cocktail_sort_list(listint_t **list)
 				print_list(*list);
 				flag = 1;
 			}
-			else 
+			else
 				temp = temp->prev;
 		}
 	       temp = temp->next;
-
 	}
 }
