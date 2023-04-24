@@ -1,63 +1,56 @@
 #include "sort.h"
 
 /**
- * swapme - swap the nodes themselves.
- * @current: pointer.
- * @current_old: pointer.
- * @list: doubly linked list
+ *  swap_nod_1 - swap infront of node
+ * @list: points to first element
+ * @temp: points to element to swap
+ * @temp_prev: element to swap with
  */
-void swapme(listint_t *current, listint_t *current_old, listint_t **list)
+void swap_nod_1(listint_t **list, listint_t *temp, listint_t *temp_prev)
 {
 	listint_t *temp1 = current->next;
 	listint_t *temp2 = current_old->prev;
 
-	if (temp1 != NULL)
-		temp1->prev = current_old;
-	if (temp2 != NULL)
-		temp2->next = current;
-	current->prev = temp2;
-	current_old->next = temp1;
-	current->next = current_old;
-	current_old->prev = current;
-	if (*list == current_old)
-		*list = current;
+	if (temp->next != NULL)
+		temp->next->prev = temp_prev;
+	if (temp_prev->prev != NULL)
+		temmp_prev->prev->next = temp;
+	temp->prev = temp_prev->prev;
+	temp_prev->next = temp->next;
+	temp->next = temp_prev;
+	temp_prev->prev = temp;
+	if (*list == temp_prev)
+		*list = temp;
 	print_list(*list);
 }
-
 /**
- * cocktail_sort_list - cocktail_sort_list
- *
- * @list: doubly linked list
+ * cocktail_sort_list - sort a list
+ * @list: list to sort
  */
 void cocktail_sort_list(listint_t **list)
 {
-	listint_t *check = *list, *first = NULL, *last = NULL;
+	listint_t *temp, *head, *tail;
 
-	if (!list)
+	if (list == NULL || list == NULL || (*list)->next == NULL)
 		return;
-	if (!(*list))
-		return;
-	if (!(*list)->next)
-		return;
+	head = tail = NULL;
+	temp = *list;
 	do {
-		while (check->next)
+		while (temp->next)
 		{
-			if (check->n > check->next->n)
-				swapme(check->next, check, list);
+			if (temp->next->n < temp->n)
+				swap_nod_1(list, temp->next, temp);
 			else
-				check = check->next;
+				temp = temp->next;
 		}
-		last = check;
-		while (check->prev != first)
+		tail = temp;
+		while (temp->prev != head)
 		{
-			if (check->n < check->prev->n)
-				swapme(check, check->prev, list);
+			if (temp->n < temp->prev->n)
+				swap_nod_1(list, temp, temp->prev);
 			else
-				check = check->prev;
+				temp = temp->prev;
 		}
-		first = check;
-	} while (first != last);
+		head = temp;
+	} while (head != tail);
 }
-
-
-
