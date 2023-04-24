@@ -51,4 +51,6 @@ void counting_sort(int *array, size_t size)
 	}
 	for (i = 0; i < (int)size; i++)
 		array[i] = copy[i];
+	free(copy);
+	free(count);
 }
