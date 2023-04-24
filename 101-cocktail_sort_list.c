@@ -8,17 +8,17 @@
  */
 listint_t *swap_node(listint_t **list, listint_t *temp)
 {
-	listint_t *temp3;
+	listint_t *temp2;
 
-	if (temp->prev->prev != NULL)
-		temp->prev->prev->next = temp;
-	temp->prev->next = temp->next;
-	temp3 = temp->prev->prev;
-	temp->prev->prev = temp;
+	temp2 = temp->prev;
+	if (temp2->prev != NULL)
+		temp2->prev->next = temp;
+	temp2->next = temp->next;
 	if (temp->next != NULL)
-		temp->next->prev = temp->prev;
+		temp->next->prev = temp2;
 	temp->next = temp->prev;
-	temp->prev = temp3;
+	temp->prev = temp2->prev;
+	temp2->prev = temp;
 	if (temp->prev == NULL)
 		*list = temp;
 	return (temp);
@@ -36,8 +36,7 @@ void cocktail_sort_list(listint_t **list)
 	if (list == NULL || *list == NULL || (*list)->next == NULL)
 		return;
 	temp = *list;
-	while (flag != 0)
-	{
+	do {
 		flag = 0;
 		while (temp->next != NULL)
 		{
@@ -51,6 +50,8 @@ void cocktail_sort_list(listint_t **list)
 			temp = temp->next;
 		}
 		temp = temp->prev;
+		if (flag == 0)
+			break;
 		while (temp->prev != NULL)
 		{
 
@@ -64,5 +65,5 @@ void cocktail_sort_list(listint_t **list)
 				temp = temp->prev;
 		}
 	       temp = temp->next;
-	}
+	} while (flag == 1);
 }
