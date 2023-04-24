@@ -42,17 +42,27 @@ void cocktail_sort_list(listint_t **list)
 		while (check->next)
 		{
 			if (check->n > check->next->n)
+			{
 				check = swapper(check->next, list);
+				print_list(* list);
+			}
 			else
+			{
 				check = check->next;
+			}
 		}
 		last = check;
 		while (check->prev != first)
 		{
 			if (check->n < check->prev->n)
+			{
 				check = swapper(check, list);
+				print_list(* list);
+			}
 			else
+			{
 				check = check->prev;
+			}
 		}
 		first = check;
 	} while (first != last);
