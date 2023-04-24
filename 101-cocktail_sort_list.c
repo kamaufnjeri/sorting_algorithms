@@ -6,24 +6,23 @@
  * @current_old: pointer.
  * @list: doubly linked list
  */
-void swapme(listint_t *current, listint_t *current_old, listint_t **list)
+listint_t *swapper(listint_t *holder, listint_t **list)
 {
-	listint_t *temp1 = current->next;
-	listint_t *temp2 = current_old->prev;
+	listint_t *node_holder;
 
-	if (temp1 != NULL)
-		temp1->prev = current_old;
-	if (temp2 != NULL)
-		temp2->next = current;
-	current->prev = temp2;
-	current_old->next = temp1;
-	current->next = current_old;
-	current_old->prev = current;
-	if (*list == current_old)
-		*list = current;
-	print_list(*list);
+	if (holder->prev->prev != NULL)
+		holder->prev->prev->next = holder;
+	holder->prev->next = holder->next;
+	node_holder = holder->prev->prev;
+	holder->prev->prev = holder;
+	if (holder->next != NULL)
+		holder->next->prev = holder->prev;
+	holder->next = holder->prev;
+	holder->prev = node_holder;
+	if (holder->prev == NULL)
+		*list = holder;
+	return (holder);
 }
-
 /**
  * cocktail_sort_list - cocktail_sort_list
  *
@@ -43,7 +42,7 @@ void cocktail_sort_list(listint_t **list)
 		while (check->next)
 		{
 			if (check->n > check->next->n)
-				swapme(check->next, check, list);
+				check = swapper(check->next, list);
 			else
 				check = check->next;
 		}
@@ -51,7 +50,7 @@ void cocktail_sort_list(listint_t **list)
 		while (check->prev != first)
 		{
 			if (check->n < check->prev->n)
-				swapme(check, check->prev, list);
+				check = swapper(check, list);
 			else
 				check = check->prev;
 		}
