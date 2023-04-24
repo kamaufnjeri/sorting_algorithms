@@ -59,7 +59,7 @@ void cocktail_sort_list(listint_t **list)
 				print_list(*list);
 				flag = 1;
 			}
-			else
+			else if(temp->prev != NULL)
 				temp = temp->prev;
 		}
 	       temp = temp->next;
