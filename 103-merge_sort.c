@@ -24,7 +24,7 @@ void merge(int *array, int *b, size_t size)
 	print_array(array + mid, size - mid);
 	for (k = 0; k < size; k++)
 	{
-		if(j >= size - mid || (i < mid && (array[i] < (array + mid)[j])))
+		if (j >= size - mid || (i < mid && (array[i] < (array + mid)[j])))
 		{
 			b[k] = array[i];
 			i++;
