@@ -1,61 +1,62 @@
 #include "sort.h"
-#include <stdlib.h>
-#include <stdio.h>
 
 /**
- * _merge_sort - initiate merge sort
- * @array: array to be sorted
- * @temp: temporary array for holding sorted elements
- * @size: size of the array
+ * merge - divides, sorts and merges arrays
+ * @array: to be sorted
+ * @b: array to store sorted array temporarily
+ * size: size  of array
  */
-void _merge_sort(int *array, int *temp, size_t size)
+void merge(int *array, int *b, size_t size)
 {
-	size_t half = size / 2, i = 0, j = 0, k;
+	size_t mid, i, j, k;
 
 	if (size < 2)
 		return;
 
-	_merge_sort(array, temp, half);
-	_merge_sort(array + half, temp + half, size - half);
+	mid = size / 2;
+	j = i = 0;
+	merge(array, b, mid);
+	merge(array + mid, b + mid, size - mid);
 
 	printf("Merging...\n");
 	printf("[left]: ");
-	print_array(array, half);
+	print_array(array, mid);
 	printf("[right]: ");
-	print_array(array + half, size - half);
+	print_array(array + mid, size - mid);
 	for (k = 0; k < size; k++)
-		if (j >= size - half || (i < half && array[i] < (array + half)[j]))
+	{
+		if (j >= size - mid || (i < mid && array[i] < (array + mid)[j]))
 		{
-			temp[k] = array[i];
+			b[k] = array[i];
 			i++;
 		}
 		else
 		{
-			temp[k] = (array + half)[j];
+			b[k] = (array + mid)[j];
 			j++;
 		}
+	}
 	for (k = 0; k < size; k++)
-		array[k] = temp[k];
+		array[k] = b[k];
 	printf("[Done]: ");
 	print_array(array, size);
 }
 
 /**
- * merge_sort - initiate merge sort
- * @array: array to be sorted
- * @size: size of the array
+ * merge_sort - sorts array
+ * @array: to sort
+ * @size: of array
  */
 void merge_sort(int *array, size_t size)
 {
-	int *temp;
+	int *b;
 
 	if (!array || size < 2)
 		return;
 
-	temp = malloc(sizeof(*temp) * size);
-	if (!temp)
+	b = malloc(sizeof(int) * size);
+	if (b == NULL)
 		return;
-
-	_merge_sort(array, temp, size);
-	free(temp);
+	merge(array, b, size);
+	free(b);
 }
