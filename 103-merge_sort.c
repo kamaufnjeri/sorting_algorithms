@@ -4,7 +4,7 @@
  * merge - divides, sorts and merges arrays
  * @array: to be sorted
  * @b: array to store sorted array temporarily
- * size: size  of array
+ * @size: size  of array
  */
 void merge(int *array, int *b, size_t size)
 {
@@ -14,10 +14,9 @@ void merge(int *array, int *b, size_t size)
 		return;
 
 	mid = size / 2;
-	j = i = 0;
+	j = i = k = 0;
 	merge(array, b, mid);
 	merge(array + mid, b + mid, size - mid);
-
 	printf("Merging...\n");
 	printf("[left]: ");
 	print_array(array, mid);
@@ -25,7 +24,7 @@ void merge(int *array, int *b, size_t size)
 	print_array(array + mid, size - mid);
 	for (k = 0; k < size; k++)
 	{
-		if (j >= size - mid || (i < mid && array[i] < (array + mid)[j]))
+		if(j >= size - mid || (i < mid && (array[i] < (array + mid)[j])))
 		{
 			b[k] = array[i];
 			i++;
@@ -41,7 +40,6 @@ void merge(int *array, int *b, size_t size)
 	printf("[Done]: ");
 	print_array(array, size);
 }
-
 /**
  * merge_sort - sorts array
  * @array: to sort
@@ -53,7 +51,6 @@ void merge_sort(int *array, size_t size)
 
 	if (!array || size < 2)
 		return;
-
 	b = malloc(sizeof(int) * size);
 	if (b == NULL)
 		return;
