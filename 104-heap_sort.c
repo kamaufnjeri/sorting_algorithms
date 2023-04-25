@@ -55,8 +55,8 @@ void heap_sort(int *array, size_t size)
 	for (i = size - 1; i >= 0; i--)
 	{
 		swap(&array[0], &array[i]);
-		maxheapify(array, i, size, 0);
 		if (i != 0)
 			print_array(array, size);
+		maxheapify(array, i, size, 0);
 	}
 }
