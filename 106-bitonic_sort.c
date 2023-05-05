@@ -6,9 +6,10 @@
  * @lowindex: ...
  * @count: ...
  * @direction: ...
+ * @size: ..
  */
 
-void bitonic_merge(int *arr, int lowindex, int count, int direction)
+void bitonic_merge(int *arr, int lowindex, int count, int direction, size_t size)
 {
 	int k, temp, i;
 
@@ -24,8 +25,8 @@ void bitonic_merge(int *arr, int lowindex, int count, int direction)
 				arr[i + k] = temp;
 			}
 		}
-		bitonic_merge(arr, lowindex, k, direction);
-		bitonic_merge(arr, (lowindex + k), k, direction);
+		bitonic_merge(arr, lowindex, k, direction, size);
+		bitonic_merge(arr, (lowindex + k), k, direction, size);
 	}
 }
 /**
@@ -51,7 +52,7 @@ void biton_sort(int *arr, int lowindex, int count, int direction, size_t size)
 		print_array(arr + lowindex, count);
 		biton_sort(arr, lowindex, k, 1, size);
 		biton_sort(arr, (lowindex + k), k, 0, size);
-		bitonic_merge(arr, lowindex, count, direction);
+		bitonic_merge(arr, lowindex, count, direction, size);
 		printf("Result [%d/16] ", count);
 		if (direction == 1)
 			printf("(UP):\n");
