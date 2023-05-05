@@ -1,21 +1,5 @@
 #include "sort.h"
 
-
-/**
-* swapint - swaps index's of array
-* @l: left or low index to swap
-* @r: right or high index
-*/
-
-void swapint(int *l, int *r)
-{
-	int temp;
-
-	temp = *l;
-	*l = *r;
-	*r = temp;
-}
-
 /**
 * b_merge - bitonic merge
 * @array: Array slice being merged
@@ -27,7 +11,7 @@ void swapint(int *l, int *r)
 
 void b_merge(int *array, int low, int count, int dir, size_t size)
 {
-	int i, n;
+	int i, n, temp;
 
 	if (count > 1)
 	{
@@ -35,7 +19,12 @@ void b_merge(int *array, int low, int count, int dir, size_t size)
 		for (i = low; i < low + n; i++)
 		{
 			if ((array[i] > array[i + n]) == dir)
-				swapint(&array[i], &array[i + n]);
+			{
+
+				temp = arrray[i];
+				array[i] = array[i + n];
+				array[i + n] = temp;
+			}
 		}
 		b_merge(array, low, n, dir, size);
 		b_merge(array, low + n, n, dir, size);
