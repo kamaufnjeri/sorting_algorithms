@@ -3,20 +3,19 @@
 /**
  * bitonic_merge - sort
  * @arr: array
- * @lowindex: ...
+ * @low: ...
  * @count: ...
  * @direction: ...
  * @size: ..
  */
-
-void bitonic_merge(int *arr, int lowindex, int count, int direction, size_t size)
+void bitonic_merge(int *arr, int low, int count, int direction, size_t size)
 {
 	int k, temp, i;
 
 	if (count > 1)
 	{
 		k = count / 2;
-		for (i = lowindex; i < (lowindex + k); i++)
+		for (i = low; i < low + k; i++)
 		{
 			if (direction == (arr[i] > arr[i + k]))
 			{
@@ -25,8 +24,8 @@ void bitonic_merge(int *arr, int lowindex, int count, int direction, size_t size
 				arr[i + k] = temp;
 			}
 		}
-		bitonic_merge(arr, lowindex, k, direction, size);
-		bitonic_merge(arr, (lowindex + k), k, direction, size);
+		bitonic_merge(arr, low, k, direction, size);
+		bitonic_merge(arr, (low + k), k, direction, size);
 	}
 }
 /**
