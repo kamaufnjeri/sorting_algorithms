@@ -1,6 +1,34 @@
 #include "sort.h"
 
 /**
+ * bitonic_merge - sort
+ * @arr: array
+ * @lowindex: ...
+ * @count: ...
+ * @direction: ...
+ */
+
+void bitonic_merge(int *arr, int lowindex, int count, int direction)
+{
+	int k, temp, i;
+
+	if (count > 1)
+	{
+		k = count / 2;
+		for (i = lowindex; i < (lowindex + k); i++)
+		{
+			if (direction == (arr[i] > arr[i + k]))
+			{
+				temp = arr[i];
+				arr[i]  = arr[i + k];
+				arr[i + k] = temp;
+			}
+		}
+		bitonic_merge(arr, lowindex, k, direction);
+		bitonic_merge(arr, (lowindex + k), k, direction);
+	}
+}
+/**
  * biton_sort - sort
  * @arr: array
  * @lowindex: ...
@@ -32,35 +60,6 @@ void biton_sort(int *arr, int lowindex, int count, int direction, size_t size)
 		print_array(arr + lowindex, count);
 	}
 }
-/**
- * bitonic_merge - sort
- * @arr: array
- * @lowindex: ...
- * @count: ...
- * @direction: ...
- */
-
-void bitonic_merge(int *arr, int lowindex, int count, int direction)
-{
-	int k, temp, i;
-
-	if (count > 1)
-	{
-		k = count / 2;
-		for (i = lowindex; i < (lowindex + k); i++)
-		{
-			if (direction == (arr[i] > arr[i + k]))
-			{
-				temp = arr[i];
-				arr[i]  = arr[i + k];
-				arr[i + k] = temp;
-			}
-		}
-		bitonic_merge(arr, lowindex, k, direction);
-		bitonic_merge(arr, (lowindex + k), k, direction);
-	}
-}
-
 /**
  * bitonic_sort - sort
  * @array: array
