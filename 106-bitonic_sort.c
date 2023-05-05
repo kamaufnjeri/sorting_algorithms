@@ -21,7 +21,7 @@ void b_merge(int *array, int low, int count, int dir, size_t size)
 			if ((array[i] > array[i + n]) == dir)
 			{
 
-				temp = arrray[i];
+				temp = array[i];
 				array[i] = array[i + n];
 				array[i + n] = temp;
 			}
