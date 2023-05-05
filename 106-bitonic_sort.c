@@ -34,8 +34,7 @@ void b_merge(int *array, int low, int count, int dir, size_t size)
 		n = count / 2;
 		for (i = low; i < low + n; i++)
 		{
-			if (((array[i] > array[i + n]) && dir == 1) ||
-			(dir == 0 && (array[i] < array[i + n])))
+			if ((array[i] > array[i + n]) == dir)
 				swapint(&array[i], &array[i + n]);
 		}
 		b_merge(array, low, n, dir, size);
